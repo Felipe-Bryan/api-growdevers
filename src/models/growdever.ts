@@ -1,5 +1,11 @@
+import { v4 as creatUuid } from 'uuid';
+
 export class Growdever {
-  constructor(private _id: string, private _nome: string, private _idade: number) {}
+  private _id: string;
+
+  constructor(private _nome: string, private _idade: number) {
+    this._id = creatUuid();
+  }
 
   public get id() {
     return this._id;
