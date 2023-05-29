@@ -1,28 +1,50 @@
-import { v4 as creatUuid } from 'uuid';
+import { v4 as createUuid } from "uuid";
+import { Skill } from "./skill.model";
+import { cpf as cpfValidator } from "cpf-cnpj-validator";
 
 export class Growdever {
-  private _id: string;
+    private _id: string;
+    private _skills: Skill[];
 
-  constructor(private _nome: string, private _idade: number) {
-    this._id = creatUuid();
-  }
+    constructor(
+        private _nome: string,
+        private _idade: number,
+        private _cpf: number
+    ) {
+        this._id = createUuid();
+        this._skills = [];
+    }
 
-  public get id() {
-    return this._id;
-  }
+    public get id(): string {
+        return this._id;
+    }
 
-  public get nome() {
-    return this._nome;
-  }
-  public get idade() {
-    return this._idade;
-  }
+    public get nome(): string {
+        return this._nome;
+    }
 
-  public toJson() {
-    return {
-      id: this._id,
-      nome: this._nome,
-      idade: this._idade,
-    };
-  }
+    public get idade(): number {
+        return this._idade;
+    }
+
+    public set idade(idade: number) {
+        this._idade = idade;
+    }
+
+    public get skills() {
+        return this._skills;
+    }
+
+    public get cpf() {
+        return this._cpf;
+    }
+
+    public toJson() {
+        return {
+            id: this._id,
+            nome: this._nome,
+            idade: this._idade,
+            cpf: cpfValidator.format(this._cpf.toString().padStart(11, "0")),
+        };
+    }
 }
